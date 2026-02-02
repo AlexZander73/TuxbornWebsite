@@ -258,7 +258,8 @@ def generate_all_pages(pages):
 def write_pages_file(nav_list):
     content = ["nav:"]
     for entry in nav_list:
-        if not (DOCS_DIR / entry).exists():
+        entry_path = entry.rstrip("/")
+        if not (DOCS_DIR / entry_path).exists():
             continue
         content.append(f"  - {entry}")
     (DOCS_DIR / ".pages").write_text("\n".join(content) + "\n", encoding="utf-8")
@@ -344,7 +345,7 @@ def sync():
             encoding="utf-8",
         )
     if checklist_index.exists():
-        nav_entries.append("checklist/index.md")
+        nav_entries.append("checklist/")
 
     if hub_page:
         nav_entries.append(hub_page)
