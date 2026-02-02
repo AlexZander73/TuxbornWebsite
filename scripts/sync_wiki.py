@@ -271,7 +271,7 @@ def sync():
         for item in DOCS_DIR.iterdir():
             if item.name.startswith("."):
                 continue
-            if item.is_dir() and item.name in PROTECTED_DIRS:
+            if item.name in PROTECTED_DIRS:
                 continue
             if item.is_dir():
                 shutil.rmtree(item)
