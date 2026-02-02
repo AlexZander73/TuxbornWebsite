@@ -258,6 +258,8 @@ def generate_all_pages(pages):
 def write_pages_file(nav_list):
     content = ["nav:"]
     for entry in nav_list:
+        if not (DOCS_DIR / entry).exists():
+            continue
         content.append(f"  - {entry}")
     (DOCS_DIR / ".pages").write_text("\n".join(content) + "\n", encoding="utf-8")
 
