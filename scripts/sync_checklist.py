@@ -236,15 +236,18 @@ def update_related_sections(mapping):
 def write_table_page(title, headers, rows, path, include_tab_column=False):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    page_id = slugify(title)
     data = {
         "title": title,
         "headers": headers,
         "rows": rows,
         "include_tab_column": include_tab_column,
+        "page_id": page_id,
     }
 
     json_blob = json.dumps(data, ensure_ascii=False)
-    content = f"""---\ntitle: {title}\n---\n\n# {title}\n\n<div class=\"checklist-controls\">\n  <input type=\"search\" class=\"checklist-search\" placeholder=\"Search...\" aria-label=\"Search checklist\" />\n  <div class=\"checklist-filters\"></div>\n</div>\n\n<div class=\"checklist-table\" data-checklist='{json_blob}'></div>\n"""
+    summary_block = '<div class="checklist-summary"></div>' if include_tab_column else ""
+    content = f"""---\ntitle: {title}\n---\n\n# {title}\n\n<div class=\"checklist-progress\">\n  <div class=\"checklist-progress__bar\"><span></span></div>\n  <div class=\"checklist-progress__label\">0% complete</div>\n</div>\n\n{summary_block}\n\n<div class=\"checklist-controls\">\n  <input type=\"search\" class=\"checklist-search\" placeholder=\"Search...\" aria-label=\"Search checklist\" />\n  <div class=\"checklist-filters\"></div>\n</div>\n\n<div class=\"checklist-table\" data-checklist='{json_blob}'></div>\n"""
     path.write_text(content, encoding="utf-8")
 
 
@@ -313,7 +316,7 @@ def main():
         update_related_sections(mapping)
 
     pages.sort(key=lambda item: item[0].lower())
-    lines = ["title: Checklist", "nav:", "  - index.md"]
+    lines = ["title: Checklist", "collapse: true", "nav:", "  - index.md"]
     for title, filename in pages:
         if filename == "index.md":
             continue

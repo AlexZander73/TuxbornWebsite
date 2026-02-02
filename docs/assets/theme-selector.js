@@ -1,6 +1,6 @@
 (() => {
   const palettes = [
-    { name: "Dragonborn", icon: "DBN", scheme: "default", primary: "deep-orange", accent: "amber" },
+    { name: "Dragonborn", icon: "DBN", scheme: "default", primary: "brown", accent: "grey" },
     { name: "Imperial", icon: "IMP", scheme: "default", primary: "amber", accent: "deep-orange" },
     { name: "Stormcloaks", icon: "STO", scheme: "default", primary: "blue", accent: "light-blue" },
     { name: "Thalmor", icon: "THA", scheme: "default", primary: "indigo", accent: "amber" },
@@ -66,6 +66,15 @@
     setThemeColorMeta();
   };
 
+  const applyScheme = (scheme) => {
+    const current = getStored() || {
+      scheme: document.body.getAttribute("data-md-color-scheme"),
+      primary: document.body.getAttribute("data-md-color-primary"),
+      accent: document.body.getAttribute("data-md-color-accent"),
+    };
+    applyPalette({ ...current, scheme });
+  };
+
   const getCurrentPalette = () => {
     const stored = getStored();
     if (stored) return stored;
@@ -85,11 +94,15 @@
     );
 
   const buildSelector = () => {
-    const headerInner = document.querySelector(".md-header__inner");
-    if (!headerInner || document.getElementById("theme-selector")) return;
+    const navList = document.querySelector(".md-nav--primary .md-nav__list");
+    if (!navList || document.getElementById("theme-selector")) return;
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "md-theme-selector";
+    const item = document.createElement("li");
+    item.className = "md-nav__item md-theme-drawer";
+
+    const title = document.createElement("span");
+    title.className = "md-theme-drawer__title";
+    title.textContent = "Website Themes";
 
     const trigger = document.createElement("button");
     trigger.type = "button";
@@ -151,6 +164,16 @@
       menu.appendChild(option);
     });
 
+    const schemeToggle = document.createElement("button");
+    schemeToggle.type = "button";
+    schemeToggle.className = "md-theme-drawer__toggle";
+    schemeToggle.textContent = "Toggle Light/Dark";
+    schemeToggle.addEventListener("click", () => {
+      const current = getCurrentPalette();
+      const nextScheme = current.scheme === "slate" ? "default" : "slate";
+      applyScheme(nextScheme);
+    });
+
     const current = getCurrentPalette();
     const match = findPalette(current) || palettes[0];
     setDisplay(match);
@@ -170,9 +193,11 @@
       }
     });
 
-    wrapper.appendChild(trigger);
-    wrapper.appendChild(menu);
-    headerInner.appendChild(wrapper);
+    item.appendChild(title);
+    item.appendChild(trigger);
+    item.appendChild(menu);
+    item.appendChild(schemeToggle);
+    navList.insertBefore(item, navList.firstChild);
   };
 
   const init = () => {

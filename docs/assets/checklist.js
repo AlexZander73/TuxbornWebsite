@@ -1,4 +1,76 @@
 (() => {
+  const storagePrefix = "checklist:";
+
+  const getKey = (pageId, rowIndex) => `${storagePrefix}${pageId}:${rowIndex}`;
+
+  const getChecked = (pageId, rowIndex) => {
+    try {
+      return localStorage.getItem(getKey(pageId, rowIndex)) === "1";
+    } catch {
+      return false;
+    }
+  };
+
+  const setChecked = (pageId, rowIndex, value) => {
+    try {
+      localStorage.setItem(getKey(pageId, rowIndex), value ? "1" : "0");
+    } catch {
+      // no-op
+    }
+  };
+
+  const updateProgress = (container, pageId, totalRows) => {
+    const progress = container.closest(".md-typeset")?.querySelector(".checklist-progress");
+    if (!progress) return;
+    let completed = 0;
+    for (let i = 0; i < totalRows; i += 1) {
+      if (getChecked(pageId, i)) completed += 1;
+    }
+    const percent = totalRows === 0 ? 0 : Math.round((completed / totalRows) * 100);
+    const bar = progress.querySelector(".checklist-progress__bar span");
+    const label = progress.querySelector(".checklist-progress__label");
+    if (bar) bar.style.width = `${percent}%`;
+    if (label) label.textContent = `${percent}% complete (${completed}/${totalRows})`;
+  };
+
+  const buildSummary = (container, data) => {
+    if (!data.include_tab_column) return;
+    const summary = container.closest(".md-typeset")?.querySelector(".checklist-summary");
+    if (!summary) return;
+
+    const tabIndex = data.headers.findIndex((h) => h.toLowerCase() === "tab");
+    if (tabIndex === -1) return;
+
+    const totals = new Map();
+    data.rows.forEach((row, idx) => {
+      const tab = row[tabIndex] || "Other";
+      const entry = totals.get(tab) || { total: 0, done: 0 };
+      entry.total += 1;
+      if (getChecked(data.page_id, idx)) entry.done += 1;
+      totals.set(tab, entry);
+    });
+
+    summary.innerHTML = "";
+    const list = document.createElement("div");
+    list.className = "checklist-summary__list";
+
+    Array.from(totals.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .forEach(([tab, stats]) => {
+        const percent = stats.total === 0 ? 0 : Math.round((stats.done / stats.total) * 100);
+        const item = document.createElement("div");
+        item.className = "checklist-summary__item";
+        item.innerHTML = `
+          <div class="checklist-summary__title">${tab}</div>
+          <div class="checklist-summary__bar"><span style="width:${percent}%"></span></div>
+          <div class="checklist-summary__meta">${percent}% (${stats.done}/${stats.total})</div>
+        `;
+        list.appendChild(item);
+      });
+
+    summary.appendChild(list);
+  };
+
   const buildTable = (container, data) => {
     container.innerHTML = "";
 
@@ -7,6 +79,11 @@
 
     const thead = document.createElement("thead");
     const headerRow = document.createElement("tr");
+
+    const doneHeader = document.createElement("th");
+    doneHeader.textContent = "Done";
+    headerRow.appendChild(doneHeader);
+
     data.headers.forEach((header) => {
       const th = document.createElement("th");
       th.textContent = header;
@@ -16,8 +93,22 @@
     table.appendChild(thead);
 
     const tbody = document.createElement("tbody");
-    data.rows.forEach((row) => {
+    data.rows.forEach((row, rowIndex) => {
       const tr = document.createElement("tr");
+
+      const doneCell = document.createElement("td");
+      doneCell.className = "checklist-table__done";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = getChecked(data.page_id, rowIndex);
+      checkbox.addEventListener("change", () => {
+        setChecked(data.page_id, rowIndex, checkbox.checked);
+        updateProgress(container, data.page_id, data.rows.length);
+        buildSummary(container, data);
+      });
+      doneCell.appendChild(checkbox);
+      tr.appendChild(doneCell);
+
       row.forEach((cell) => {
         const td = document.createElement("td");
         td.textContent = cell;
@@ -43,12 +134,15 @@
       const table = container.querySelector("table");
       if (!table) return;
 
+      updateProgress(container, data.page_id, data.rows.length);
+      buildSummary(container, data);
+
       const rows = Array.from(table.querySelectorAll("tbody tr"));
       const headers = Array.from(table.querySelectorAll("thead th")).map((th) => th.textContent);
 
       const columnFilters = headers
         .map((header, index) => ({ header, index }))
-        .filter(({ header }) => header && header.toLowerCase() !== "tab");
+        .filter(({ header }) => header && header.toLowerCase() !== "tab" && header !== "Done");
 
       const filterControls = [];
       columnFilters.forEach(({ header, index }) => {
