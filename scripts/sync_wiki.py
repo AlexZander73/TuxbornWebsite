@@ -334,7 +334,15 @@ def sync():
     if (DOCS_DIR / "index.md").exists():
         nav_entries.append("index.md")
 
-    if (DOCS_DIR / "checklist" / "index.md").exists():
+    checklist_index = DOCS_DIR / "checklist" / "index.md"
+    if checklist_index.exists():
+        nav_entries.append("checklist/index.md")
+    elif (DOCS_DIR / "checklist").exists():
+        checklist_index.parent.mkdir(parents=True, exist_ok=True)
+        checklist_index.write_text(
+            "---\ntitle: Checklist\n---\n\n# Checklist\n\nThe checklist dashboard will appear here after the checklist sync runs.\n",
+            encoding="utf-8",
+        )
         nav_entries.append("checklist/index.md")
 
     if hub_page:

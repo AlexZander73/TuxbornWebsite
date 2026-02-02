@@ -33,11 +33,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Sync wiki content
-        run: python scripts/sync_wiki.py
-
       - name: Sync checklist data
         run: python scripts/sync_checklist.py
+
+      - name: Sync wiki content
+        run: python scripts/sync_wiki.py
 
       - name: Check internal links
         run: python scripts/check_links.py

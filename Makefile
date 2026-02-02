@@ -5,8 +5,8 @@ venv:
 	. .venv/bin/activate && pip install -r requirements.txt
 
 sync:
-	. .venv/bin/activate && python scripts/sync_wiki.py
 	. .venv/bin/activate && python scripts/sync_checklist.py
+	. .venv/bin/activate && python scripts/sync_wiki.py
 
 serve:
 	. .venv/bin/activate && mkdocs serve
