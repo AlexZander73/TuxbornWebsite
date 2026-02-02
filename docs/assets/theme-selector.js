@@ -1,5 +1,6 @@
 (() => {
   const palettes = [
+    { name: "Dragonborn", icon: "DBN", scheme: "default", primary: "deep-orange", accent: "amber" },
     { name: "Imperial", icon: "IMP", scheme: "default", primary: "amber", accent: "deep-orange" },
     { name: "Stormcloaks", icon: "STO", scheme: "default", primary: "blue", accent: "light-blue" },
     { name: "Thalmor", icon: "THA", scheme: "default", primary: "indigo", accent: "amber" },
@@ -12,6 +13,8 @@
     { name: "Bards College", icon: "BC", scheme: "default", primary: "pink", accent: "deep-orange" },
     { name: "Greybeards", icon: "GB", scheme: "default", primary: "blue-grey", accent: "grey" },
     { name: "Blades", icon: "BLD", scheme: "default", primary: "orange", accent: "deep-orange" },
+    { name: "Forsworn", icon: "FOR", scheme: "slate", primary: "brown", accent: "red" },
+    { name: "Vigilants", icon: "VIG", scheme: "default", primary: "grey", accent: "amber" },
   ];
 
   const storageKey = "__palette";
@@ -40,12 +43,27 @@
     }
   };
 
+  const setThemeColorMeta = () => {
+    const color = getComputedStyle(document.body)
+      .getPropertyValue("--md-primary-fg-color")
+      .trim();
+    if (!color) return;
+    let meta = document.querySelector("meta[name='theme-color']");
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "theme-color");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", color);
+  };
+
   const applyPalette = (palette) => {
     if (!palette) return;
     document.body.setAttribute("data-md-color-scheme", palette.scheme);
     document.body.setAttribute("data-md-color-primary", palette.primary);
     document.body.setAttribute("data-md-color-accent", palette.accent);
     setStored(palette);
+    setThemeColorMeta();
   };
 
   const getCurrentPalette = () => {
@@ -136,6 +154,7 @@
     const current = getCurrentPalette();
     const match = findPalette(current) || palettes[0];
     setDisplay(match);
+    setThemeColorMeta();
 
     trigger.addEventListener("click", (event) => {
       event.stopPropagation();

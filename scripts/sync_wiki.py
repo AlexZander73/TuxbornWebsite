@@ -256,7 +256,7 @@ def generate_all_pages(pages):
 
 
 def write_pages_file(nav_list):
-    content = ["title: Tuxborn Wiki", "nav:"]
+    content = ["nav:"]
     for entry in nav_list:
         content.append(f"  - {entry}")
     (DOCS_DIR / ".pages").write_text("\n".join(content) + "\n", encoding="utf-8")
@@ -335,15 +335,13 @@ def sync():
         nav_entries.append("index.md")
 
     checklist_index = DOCS_DIR / "checklist" / "index.md"
-    if checklist_index.exists():
-        nav_entries.append("checklist/index.md")
-    elif (DOCS_DIR / "checklist").exists():
+    if not checklist_index.exists():
         checklist_index.parent.mkdir(parents=True, exist_ok=True)
         checklist_index.write_text(
             "---\ntitle: Checklist\n---\n\n# Checklist\n\nThe checklist dashboard will appear here after the checklist sync runs.\n",
             encoding="utf-8",
         )
-        nav_entries.append("checklist/index.md")
+    nav_entries.append("checklist/index.md")
 
     if hub_page:
         nav_entries.append(hub_page)

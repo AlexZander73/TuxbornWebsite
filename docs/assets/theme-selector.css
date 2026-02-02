@@ -46,6 +46,7 @@
   padding: 0.4rem;
   border-radius: 0.75rem;
   background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   border: 1px solid var(--md-default-fg-color--light);
   z-index: 10;
