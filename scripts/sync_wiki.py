@@ -345,7 +345,7 @@ def sync():
             encoding="utf-8",
         )
     if checklist_index.exists():
-        nav_entries.append("checklist/")
+        nav_entries.append("checklist")
 
     if hub_page:
         nav_entries.append(hub_page)
