@@ -1,0 +1,5 @@
+---
+edit_uri: https://github.com/Omni-guides/Tuxborn/wiki/_Footer
+---
+
+**Tuxborn wiki links**: ‼️ **[Tuxborn 1.2 beta information](Tuxborn-1.2-beta-information/)** ‼️ [Additional player resources](Additional-player-resources/) | [Base game content in Tuxborn](Base-game-content-in-Tuxborn/) | [Content and quests](Content-and-quests/) | [Followers](Followers/) | [Frequently Asked Questions](Frequently-Asked-Questions/) | [Getting started](Getting-started/) | [Help with modding Tuxborn](Help-with-modding-Tuxborn/) | [Installation and config guides](Installation-and-config-guides/) | [Known quest‐blocking bugs in Tuxborn](Known-quest‐blocking-bugs-in-Tuxborn/) | [Legacy of the Dragonborn](Legacy-of-the-Dragonborn/) | [Quest mod overviews](Quest-mod-overviews/) | [Upgrading Tuxborn](Upgrading-Tuxborn/) | [Emissaries of Tux](Emissaries-of-Tux/)
