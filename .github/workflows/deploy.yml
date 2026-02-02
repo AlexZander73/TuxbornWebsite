@@ -39,19 +39,6 @@ jobs:
       - name: Sync wiki content
         run: python scripts/sync_wiki.py
 
-      - name: Debug checklist presence
-        run: |
-          echo "Docs root:"
-          ls -la docs
-          echo "Checklist folder:"
-          ls -la docs/checklist || true
-          echo ".pages:"
-          cat docs/.pages || true
-          if [ ! -f docs/checklist/index.md ]; then
-            echo "Missing docs/checklist/index.md"
-            exit 1
-          fi
-
       - name: Check internal links
         run: python scripts/check_links.py
 
