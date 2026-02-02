@@ -341,7 +341,8 @@ def sync():
             "---\ntitle: Checklist\n---\n\n# Checklist\n\nThe checklist dashboard will appear here after the checklist sync runs.\n",
             encoding="utf-8",
         )
-    nav_entries.append("checklist/index.md")
+    if checklist_index.exists():
+        nav_entries.append("checklist/index.md")
 
     if hub_page:
         nav_entries.append(hub_page)
@@ -359,6 +360,13 @@ def sync():
             continue
         nav_entries.append(page)
 
+    # Safety: ensure the checklist placeholder exists if referenced in nav.
+    if "checklist/index.md" in nav_entries and not checklist_index.exists():
+        checklist_index.parent.mkdir(parents=True, exist_ok=True)
+        checklist_index.write_text(
+            "---\ntitle: Checklist\n---\n\n# Checklist\n\nThe checklist dashboard will appear here after the checklist sync runs.\n",
+            encoding="utf-8",
+        )
     write_pages_file(nav_entries)
 
     print(f"Synced {len(md_files)} pages into {DOCS_DIR}")
