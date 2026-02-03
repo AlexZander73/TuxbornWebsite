@@ -324,6 +324,7 @@ The following mods are known to have been removed in the beta:
 * Photo Mode (as described above)
 * Knight of the North
 * Unfaltered Virtue
+* Konahrik's Accoutrements
 
 Rebalancing Anniversary Edition was a big source of questions we kept getting along the lines of "I'm supposed to be able to do X in Anniversary Edition content but can't, what's wrong?" The removal of RAE means that in most cases, requirements for starting AE quests will now match vanilla. However, some parts of the AE are still impacted by other things in our load order, such as LOTD. See [Anniversary Edition content in Tuxborn 1.2 beta](Anniversary-Edition-content-in-Tuxborn-1.2-beta/) for further information.
 
@@ -337,7 +338,9 @@ QuickLoot was removed due to bugginess in certain mod areas (such as Carved Brin
 
 Knight of the North was removed because it was basically overhauling the quest for acquiring the items in the Divine Crusader Creation in the AE. But the problem with this was that LOTD was _also_ overhauling that quest, and the two versions of the quest were not playing nicely with one another. So KotN has been removed to resolve this conflict.
 
-Unfaltered Virtue is known to have a breaking bug if Sybille Stentor dies before you launch it. Our load order also includes Unmasking Sybille, and killing her _is_ a possible outcome of that mod! (TBD: Confirm with Ouro that this is the reason for removing this mod.)
+Unfaltered Virtue is known to have a breaking bug if Sybille Stentor dies before you launch it. Our load order also includes Unmasking Sybille, and killing her _is_ a possible outcome of that mod!
+
+Konahrik's Accoutrements had has repeated texture issues in our load order, either causing eyes to disappear, or making your character bald.
 </details>
 
 ## Miscellaneous other changes

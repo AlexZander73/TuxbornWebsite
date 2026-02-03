@@ -364,7 +364,7 @@ def sync():
         nav_entries.append(page)
 
     # Safety: ensure the checklist placeholder exists if referenced in nav.
-    if "checklist/index.md" in nav_entries and not checklist_index.exists():
+    if "checklist" in nav_entries and not checklist_index.exists():
         checklist_index.parent.mkdir(parents=True, exist_ok=True)
         checklist_index.write_text(
             "---\ntitle: Checklist\n---\n\n# Checklist\n\nThe checklist dashboard will appear here after the checklist sync runs.\n",

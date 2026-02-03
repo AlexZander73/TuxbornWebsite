@@ -93,8 +93,13 @@
   display: none;
 }
 
+.md-sidebar__inner {
+  overflow: hidden;
+}
+
 .md-sidebar__scrollwrap {
-  max-height: calc(100vh - var(--md-header-height));
+  height: calc(100vh - var(--md-header-height));
   overflow-y: auto;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }

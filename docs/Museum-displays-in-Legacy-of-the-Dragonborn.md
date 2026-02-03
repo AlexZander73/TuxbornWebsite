@@ -12,18 +12,21 @@ There are a few different ways to do this:
 2. Use the Display Drop-off chest immediately to the left of the Prep Station
 3. Give displayable items to Auryen
 4. Place items manually yourself
+5. Sell a displayable item to a merchant
 
 Using the Prep Station is usually the least complicated way to display items, as it will take everything in your inventory that's displayable. However, this can sometimes backfire on you, as it will _not_ care if the displayable item is a quest item! It will also not care if it's a thing you might actually want to use. The best known way to prevent this from happening is to mark a quest item or useful item as a Favorite, because the station _will_ check for that.
 
 If you want a bit more direct control over what things get displayed, consider using the chest, or give things to Auryen. That way you'll know for sure that a thing to be displayed is a thing you specifically _intend_ to be displayed.
 
-Last but not least, you can also take items to their display locations yourself, if you know where they belong in the museum. In most cases, all you'll need to do is simply place the item on the intended display. Some known exceptions to this are:
+You can also take items to their display locations yourself, if you know where they belong in the museum. In most cases, all you'll need to do is simply place the item on the intended display. Some known exceptions to this are:
 
 1. The Armory, where you'll need to place items in the storage cabinet to the left of the stairs when you come in
 2. The gems display in the Gallery of Natural Science
 3. The cabinet for the Jewelry display on the second floor of the Hall of Heroes
 
 If you don't know where to put a particular item, you can almost always find out where it belongs by looking it up on [the LOTD wiki](https://legacy-of-the-dragonborn.fandom.com/wiki/Legacy_of_the_Dragonborn_Wiki).
+
+Lastly, if you sell any displayable item to a merchant, and you haven't already displayed that item or one like it, then that item will automatically display in the museum. This is the same mechanism that causes Auryen to contact you via courier to invite you to come talk to him, if you're not already the museum's relic hunter.
 
 ## "How can I tell if an item is displayable in the museum?"
 
@@ -43,10 +46,12 @@ These three mods should make the symbols visible in these scenarios:
 As described on the Curator's Companion page linked here, there are three main types of symbols to look for. Click over to the mod page to see what the symbols look like. All of them have a dragon head symbol that represents the museum, and the variants of the symbol are:
 
 * Blue plus sign: this means the item is new to you and you have not displayed it yet (if it's a unique item), or any other items of that type (if it's not a unique item)
-* Yellow dot: this means the item is one you've seen before, but is still not displayed yet
+* Hand symbol: this means the item is one you've seen before, but is still not displayed yet
 * Green checkmark: this means the item is displayed in the museum, or an item of the same type already is
 
 One caveat for this is that the Curator's Companion mod is known to be a little flaky when tracking items that have known variants, such as the backpacks from the Anniversary Edition. See below for more info on this.
+
+Steam Deck players, please note that the hand symbol on items you've seen before is likely just going to look like a dot to you, due to the Deck's small screen size.
 
 ## "I want to make a replica of something, but the replica recipe doesn't show up at the station!"
 
