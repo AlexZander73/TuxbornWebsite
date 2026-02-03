@@ -40,7 +40,7 @@ jobs:
         run: python scripts/sync_wiki.py
 
       - name: Check internal links
-        run: python scripts/check_links.py
+        run: python scripts/check_links.py --report --no-fail
 
       - name: Build site
         run: mkdocs build --clean

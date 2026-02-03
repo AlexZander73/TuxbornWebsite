@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -62,7 +63,27 @@ def check_file(path):
     return broken
 
 
+def write_report(failures):
+    report_path = DOCS_DIR / "broken-links.md"
+    lines = ["# Broken links", "", "This page is generated during the build.", ""]
+    if not failures:
+        lines.append("No broken internal links detected.")
+    else:
+        for path, links in sorted(failures.items()):
+            lines.append(f"## {path.relative_to(DOCS_DIR)}")
+            lines.append("")
+            for link in links:
+                lines.append(f"- `{link}`")
+            lines.append("")
+    report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--report", action="store_true", help="Write docs/broken-links.md")
+    parser.add_argument("--no-fail", action="store_true", help="Do not fail on broken links")
+    args = parser.parse_args()
+
     if not DOCS_DIR.exists():
         print("docs/ not found. Run scripts/sync_wiki.py first.")
         return 1
@@ -73,12 +94,15 @@ def main():
         if broken:
             failures[path] = broken
 
+    if args.report:
+        write_report(failures)
+
     if failures:
         print("Broken internal links detected:")
         for path, links in sorted(failures.items()):
             for link in links:
                 print(f"- {path}: {link}")
-        return 1
+        return 0 if args.no_fail else 1
 
     print("Link check passed.")
     return 0

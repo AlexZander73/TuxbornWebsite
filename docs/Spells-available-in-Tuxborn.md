@@ -112,7 +112,7 @@ Additional notes:
 * Brognak in the Moorside Inn, Morthal - Sells spells from Bloodmoon, Desecration, Flames of Coldharbour, and Necrotic
 * Didstan in the the Frozen Hearth, Winterhold - Sells spells from Arcane and Arclight
 * Qa'ashi in the Temple of Mara, Riften - Sells spells from Inquisition, Lunaris, and Stellaris
-* Tanuaso in the the Retching Netch, Ravenrock - Sells spells from Necrom and Vulcano
+* Tanuaso in the the Retching Netch, Raven Rock - Sells spells from Necrom and Vulcano
 
 ### Vendors added by Pilgrim
 

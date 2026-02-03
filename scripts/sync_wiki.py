@@ -8,15 +8,19 @@ from pathlib import Path
 from urllib.parse import unquote
 
 WIKI_URL = "https://github.com/Omni-guides/Tuxborn.wiki.git"
+REPO_RAW_BASE = "https://raw.githubusercontent.com/Omni-guides/Tuxborn"
+REPO_WEB_BASE = "https://github.com/Omni-guides/Tuxborn"
 CACHE_DIR = Path(".cache/wiki")
 DOCS_DIR = Path("docs")
 
 PROTECTED_DIRS = {"assets", "checklist"}
+PROTECTED_FILES = {"404.md", "broken-links.md"}
 
 ASSET_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".bmp", ".ico", ".pdf"}
 
 WIKI_LINK_RE = re.compile(r"\[\[([^\]|]+?)(?:\|([^\]]+))?\]\]")
 MD_LINK_RE = re.compile(r"\]\(([^)]+)\)")
+IMAGE_LINK_RE = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 
 
 def run(cmd, cwd=None):
@@ -123,6 +127,74 @@ def rewrite_wiki_links(text, current_rel, page_map):
         return f"[{label}]({url})"
 
     return WIKI_LINK_RE.sub(replace, text)
+
+
+
+
+def rewrite_any_links(text, current_rel, page_map):
+    def replace(match):
+        original = match.group(0)
+        target = match.group(1).strip()
+        if target.startswith('<') and target.endswith('>'):
+            target = target[1:-1]
+
+        parts = target.split(None, 1)
+        url = parts[0]
+        title = ' ' + parts[1] if len(parts) > 1 else ''
+
+        if url.startswith('#') or url.startswith('mailto:') or url.startswith('http://') or url.startswith('https://'):
+            return original
+
+        cleaned = url
+        if cleaned.endswith('.md'):
+            cleaned = cleaned[:-3]
+        cleaned = cleaned.strip('/')
+
+        key = normalize_key(cleaned)
+        if key not in page_map:
+            return original
+        to_rel = page_map[key]
+        new_url = page_url(current_rel, to_rel)
+        if '#' in url:
+            anchor = url.split('#', 1)[1]
+            new_url = new_url + '#' + anchor
+        return f"]({new_url}{title})"
+
+    return MD_LINK_RE.sub(replace, text)
+
+
+
+
+def download_asset(url, rel_path):
+    try:
+        import urllib.request
+        dest = DOCS_DIR / 'assets' / 'external' / rel_path
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with urllib.request.urlopen(url) as resp:
+            dest.write_bytes(resp.read())
+        return dest
+    except Exception:
+        return None
+
+
+def rewrite_image_links(text, current_rel):
+    def replace(match):
+        original = match.group(0)
+        url = match.group(1).strip()
+        if url.startswith('<') and url.endswith('>'):
+            url = url[1:-1]
+        original_url = url
+        if url.startswith(f"{REPO_WEB_BASE}/blob/"):
+            url = url.replace(f"{REPO_WEB_BASE}/blob/", f"{REPO_RAW_BASE}/")
+        if url.startswith(REPO_RAW_BASE):
+            rel = url.replace(f"{REPO_RAW_BASE}/", "")
+            dest = download_asset(url, rel)
+            if dest:
+                rel_url = os.path.relpath(dest, start=(DOCS_DIR / current_rel).parent).replace('\\\\', '/')
+                return original.replace(match.group(1), rel_url)
+        return original.replace(match.group(1), original_url)
+
+    return IMAGE_LINK_RE.sub(replace, text)
 
 
 def rewrite_md_links(text, current_rel, page_map):
@@ -265,6 +337,46 @@ def write_pages_file(nav_list):
     (DOCS_DIR / ".pages").write_text("\n".join(content) + "\n", encoding="utf-8")
 
 
+
+
+def fetch_readme(page_map):
+    import urllib.request
+    urls = [
+        f"{REPO_RAW_BASE}/HEAD/README.md",
+        f"{REPO_RAW_BASE}/main/README.md",
+        f"{REPO_RAW_BASE}/master/README.md",
+    ]
+    content = None
+    for url in urls:
+        try:
+            with urllib.request.urlopen(url) as resp:
+                content = resp.read().decode("utf-8", errors="replace")
+                break
+        except Exception:
+            continue
+    if content is None:
+        return
+
+    readme_path = DOCS_DIR / "project-readme.md"
+    content = ensure_front_matter(content, f"{REPO_WEB_BASE}/blob/HEAD/README.md")
+    content = rewrite_any_links(content, "project-readme.md", page_map)
+    content = rewrite_image_links(content, "project-readme.md")
+    readme_path.write_text(content, encoding="utf-8")
+
+
+
+
+def ensure_404():
+    path = DOCS_DIR / "404.md"
+    if path.exists():
+        return
+    path.write_text(
+        "---\ntitle: Page not found\n---\n\n# 404 — Page not found\n\nIt looks like this page moved or doesn’t exist.\n\n- Try the search bar in the header\n- Browse the sidebar\n- Or head back to the home page\n\nIf you think this is a broken link in the wiki, please update it there.\n",
+        encoding="utf-8",
+    )
+
+
+
 def sync():
     ensure_wiki_repo()
 
@@ -272,7 +384,7 @@ def sync():
         for item in DOCS_DIR.iterdir():
             if item.name.startswith("."):
                 continue
-            if item.name in PROTECTED_DIRS:
+            if item.name in PROTECTED_DIRS or item.name in PROTECTED_FILES:
                 continue
             if item.is_dir():
                 shutil.rmtree(item)
@@ -293,6 +405,8 @@ def sync():
         text = src.read_text(encoding="utf-8")
         text = rewrite_wiki_links(text, target_rel.as_posix(), page_map)
         text = rewrite_md_links(text, target_rel.as_posix(), page_map)
+        text = rewrite_any_links(text, target_rel.as_posix(), page_map)
+        text = rewrite_image_links(text, target_rel.as_posix())
 
         page_slug = rel.with_suffix("").as_posix().replace(" ", "-")
         if rel.name == "Home.md" and rel.parent == Path("."):
@@ -304,6 +418,8 @@ def sync():
         dest.write_text(text, encoding="utf-8")
 
     copy_assets()
+    fetch_readme(page_map)
+    ensure_404()
     create_stub_pages()
 
     has_home = any(

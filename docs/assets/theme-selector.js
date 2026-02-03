@@ -1,20 +1,20 @@
 (() => {
   const palettes = [
-    { name: "Dragonborn", icon: "DBN", scheme: "default", primary: "brown", accent: "grey" },
-    { name: "Imperial", icon: "IMP", scheme: "default", primary: "amber", accent: "deep-orange" },
-    { name: "Stormcloaks", icon: "STO", scheme: "default", primary: "blue", accent: "light-blue" },
-    { name: "Thalmor", icon: "THA", scheme: "default", primary: "indigo", accent: "amber" },
-    { name: "Dark Brotherhood", icon: "DB", scheme: "slate", primary: "red", accent: "red" },
-    { name: "Dawnguard", icon: "DG", scheme: "default", primary: "red", accent: "amber" },
-    { name: "Volkihar", icon: "VOL", scheme: "slate", primary: "deep-purple", accent: "red" },
-    { name: "Thieves Guild", icon: "TG", scheme: "default", primary: "brown", accent: "orange" },
-    { name: "Companions", icon: "CMP", scheme: "default", primary: "green", accent: "lime" },
-    { name: "College of Winterhold", icon: "COW", scheme: "default", primary: "cyan", accent: "teal" },
-    { name: "Bards College", icon: "BC", scheme: "default", primary: "pink", accent: "deep-orange" },
-    { name: "Greybeards", icon: "GB", scheme: "default", primary: "blue-grey", accent: "grey" },
-    { name: "Blades", icon: "BLD", scheme: "default", primary: "orange", accent: "deep-orange" },
-    { name: "Forsworn", icon: "FOR", scheme: "slate", primary: "brown", accent: "red" },
-    { name: "Vigilants", icon: "VIG", scheme: "default", primary: "grey", accent: "amber" },
+    { name: "Dragonborn", icon: "🐲", scheme: "default", primary: "brown", accent: "grey" },
+    { name: "Imperial", icon: "🛡️", scheme: "default", primary: "amber", accent: "deep-orange" },
+    { name: "Stormcloaks", icon: "❄️", scheme: "default", primary: "blue", accent: "light-blue" },
+    { name: "Thalmor", icon: "✨", scheme: "default", primary: "indigo", accent: "amber" },
+    { name: "Dark Brotherhood", icon: "☠️", scheme: "slate", primary: "red", accent: "red" },
+    { name: "Dawnguard", icon: "🦇", scheme: "default", primary: "red", accent: "amber" },
+    { name: "Volkihar", icon: "🩸", scheme: "slate", primary: "deep-purple", accent: "red" },
+    { name: "Thieves Guild", icon: "🗝️", scheme: "default", primary: "brown", accent: "orange" },
+    { name: "Companions", icon: "🐺", scheme: "default", primary: "green", accent: "lime" },
+    { name: "College of Winterhold", icon: "🧙", scheme: "default", primary: "cyan", accent: "teal" },
+    { name: "Bards College", icon: "🎻", scheme: "default", primary: "pink", accent: "deep-orange" },
+    { name: "Greybeards", icon: "🏔️", scheme: "default", primary: "blue-grey", accent: "grey" },
+    { name: "Blades", icon: "🗡️", scheme: "default", primary: "orange", accent: "deep-orange" },
+    { name: "Forsworn", icon: "🪓", scheme: "slate", primary: "brown", accent: "red" },
+    { name: "Vigilants", icon: "🕯️", scheme: "default", primary: "grey", accent: "amber" },
   ];
 
   const storageKey = "__palette";
@@ -132,7 +132,6 @@
 
     const setDisplay = (palette) => {
       icon.textContent = palette.icon;
-      icon.setAttribute("data-faction", palette.name.toLowerCase().replace(/\s+/g, "-"));
       label.textContent = palette.name;
     };
 
@@ -146,7 +145,6 @@
       const optIcon = document.createElement("span");
       optIcon.className = "md-theme-selector__icon";
       optIcon.textContent = palette.icon;
-      optIcon.setAttribute("data-faction", palette.name.toLowerCase().replace(/\s+/g, "-"));
 
       const optLabel = document.createElement("span");
       optLabel.textContent = palette.name;
