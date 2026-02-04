@@ -1,20 +1,20 @@
 (() => {
   const palettes = [
     { name: "Dragonborn", icon: "pets", scheme: "default", primary: "brown", accent: "grey" },
-    { name: "Imperial", icon: "shield", scheme: "default", primary: "amber", accent: "deep-orange" },
+    { name: "Imperial", icon: "security", scheme: "default", primary: "amber", accent: "deep-orange" },
     { name: "Stormcloaks", icon: "ac_unit", scheme: "default", primary: "blue", accent: "light-blue" },
     { name: "Thalmor", icon: "auto_awesome", scheme: "default", primary: "indigo", accent: "amber" },
-    { name: "Dark Brotherhood", icon: "skull", scheme: "slate", primary: "red", accent: "red" },
-    { name: "Dawnguard", icon: "bathtub", scheme: "default", primary: "red", accent: "amber" },
+    { name: "Dark Brotherhood", icon: "warning", scheme: "slate", primary: "red", accent: "red" },
+    { name: "Dawnguard", icon: "local_fire_department", scheme: "default", primary: "red", accent: "amber" },
     { name: "Volkihar", icon: "bloodtype", scheme: "slate", primary: "deep-purple", accent: "red" },
-    { name: "Thieves Guild", icon: "key", scheme: "default", primary: "brown", accent: "orange" },
+    { name: "Thieves Guild", icon: "vpn_key", scheme: "default", primary: "brown", accent: "orange" },
     { name: "Companions", icon: "pets", scheme: "default", primary: "green", accent: "lime" },
     { name: "College of Winterhold", icon: "auto_fix_high", scheme: "default", primary: "cyan", accent: "teal" },
     { name: "Bards College", icon: "music_note", scheme: "default", primary: "pink", accent: "deep-orange" },
     { name: "Greybeards", icon: "terrain", scheme: "default", primary: "blue-grey", accent: "grey" },
-    { name: "Blades", icon: "swords", scheme: "default", primary: "orange", accent: "deep-orange" },
+    { name: "Blades", icon: "military_tech", scheme: "default", primary: "orange", accent: "deep-orange" },
     { name: "Forsworn", icon: "gavel", scheme: "slate", primary: "brown", accent: "red" },
-    { name: "Vigilants", icon: "local_fire_department", scheme: "default", primary: "grey", accent: "amber" },
+    { name: "Vigilants", icon: "flare", scheme: "default", primary: "grey", accent: "amber" },
   ];
 
   const storageKey = "__palette";
