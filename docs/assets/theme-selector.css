@@ -1,4 +1,5 @@
 .md-theme-drawer {
+  position: relative;
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--md-default-fg-color--light);
   margin-bottom: 0.5rem;
@@ -40,13 +41,20 @@
   letter-spacing: 0.03em;
 }
 
+.md-theme-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .md-theme-selector__chevron {
   font-size: 0.7rem;
   opacity: 0.7;
 }
 
 .md-theme-selector__menu {
-  margin-top: 0.5rem;
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
   min-width: 14rem;
   padding: 0.4rem;
   border-radius: 0.75rem;
@@ -55,6 +63,26 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   border: 1px solid var(--md-default-fg-color--light);
   z-index: 10;
+}
+
+.md-theme-selector__header {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--md-default-fg-color--light);
+  margin: 0.2rem 0.4rem 0.3rem;
+}
+
+.md-theme-selector__close {
+  width: 100%;
+  margin-top: 0.4rem;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 }
 
 .md-theme-selector__option {
@@ -88,8 +116,7 @@
   cursor: pointer;
 }
 
-.md-header__option,
-.md-nav__item .md-toggle {
+.md-header__option {
   display: none;
 }
 
@@ -106,7 +133,9 @@
 
 /* Force the primary nav to use collapsible sections on desktop as well. */
 .md-sidebar--primary .md-nav__toggle {
-  display: inline-flex;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .md-sidebar--primary .md-nav__title--site {
@@ -117,4 +146,8 @@
   .md-sidebar--primary .md-nav__list > .md-nav__item--section > .md-nav__link {
     font-weight: 600;
   }
+}
+
+.md-sidebar--primary .md-nav__item--section > label.md-nav__link {
+  cursor: pointer;
 }

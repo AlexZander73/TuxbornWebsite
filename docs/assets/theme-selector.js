@@ -1,20 +1,20 @@
 (() => {
   const palettes = [
-    { name: "Dragonborn", icon: "🐲", scheme: "default", primary: "brown", accent: "grey" },
-    { name: "Imperial", icon: "🛡️", scheme: "default", primary: "amber", accent: "deep-orange" },
-    { name: "Stormcloaks", icon: "❄️", scheme: "default", primary: "blue", accent: "light-blue" },
-    { name: "Thalmor", icon: "✨", scheme: "default", primary: "indigo", accent: "amber" },
-    { name: "Dark Brotherhood", icon: "☠️", scheme: "slate", primary: "red", accent: "red" },
-    { name: "Dawnguard", icon: "🦇", scheme: "default", primary: "red", accent: "amber" },
-    { name: "Volkihar", icon: "🩸", scheme: "slate", primary: "deep-purple", accent: "red" },
-    { name: "Thieves Guild", icon: "🗝️", scheme: "default", primary: "brown", accent: "orange" },
-    { name: "Companions", icon: "🐺", scheme: "default", primary: "green", accent: "lime" },
-    { name: "College of Winterhold", icon: "🧙", scheme: "default", primary: "cyan", accent: "teal" },
-    { name: "Bards College", icon: "🎻", scheme: "default", primary: "pink", accent: "deep-orange" },
-    { name: "Greybeards", icon: "🏔️", scheme: "default", primary: "blue-grey", accent: "grey" },
-    { name: "Blades", icon: "🗡️", scheme: "default", primary: "orange", accent: "deep-orange" },
-    { name: "Forsworn", icon: "🪓", scheme: "slate", primary: "brown", accent: "red" },
-    { name: "Vigilants", icon: "🕯️", scheme: "default", primary: "grey", accent: "amber" },
+    { name: "Dragonborn", icon: "pets", scheme: "default", primary: "brown", accent: "grey" },
+    { name: "Imperial", icon: "shield", scheme: "default", primary: "amber", accent: "deep-orange" },
+    { name: "Stormcloaks", icon: "ac_unit", scheme: "default", primary: "blue", accent: "light-blue" },
+    { name: "Thalmor", icon: "auto_awesome", scheme: "default", primary: "indigo", accent: "amber" },
+    { name: "Dark Brotherhood", icon: "skull", scheme: "slate", primary: "red", accent: "red" },
+    { name: "Dawnguard", icon: "bathtub", scheme: "default", primary: "red", accent: "amber" },
+    { name: "Volkihar", icon: "bloodtype", scheme: "slate", primary: "deep-purple", accent: "red" },
+    { name: "Thieves Guild", icon: "key", scheme: "default", primary: "brown", accent: "orange" },
+    { name: "Companions", icon: "pets", scheme: "default", primary: "green", accent: "lime" },
+    { name: "College of Winterhold", icon: "auto_fix_high", scheme: "default", primary: "cyan", accent: "teal" },
+    { name: "Bards College", icon: "music_note", scheme: "default", primary: "pink", accent: "deep-orange" },
+    { name: "Greybeards", icon: "terrain", scheme: "default", primary: "blue-grey", accent: "grey" },
+    { name: "Blades", icon: "swords", scheme: "default", primary: "orange", accent: "deep-orange" },
+    { name: "Forsworn", icon: "gavel", scheme: "slate", primary: "brown", accent: "red" },
+    { name: "Vigilants", icon: "local_fire_department", scheme: "default", primary: "grey", accent: "amber" },
   ];
 
   const storageKey = "__palette";
@@ -93,6 +93,13 @@
         palette.accent === match.accent
     );
 
+  const createIcon = (name) => {
+    const span = document.createElement("span");
+    span.className = "material-icons md-theme-icon";
+    span.textContent = name;
+    return span;
+  };
+
   const buildSelector = () => {
     const navList = document.querySelector(".md-nav--primary .md-nav__list");
     if (!navList || document.getElementById("theme-selector")) return;
@@ -111,8 +118,7 @@
     trigger.setAttribute("aria-haspopup", "listbox");
     trigger.setAttribute("aria-expanded", "false");
 
-    const icon = document.createElement("span");
-    icon.className = "md-theme-selector__icon";
+    const icon = createIcon(palettes[0].icon);
 
     const label = document.createElement("span");
     label.className = "md-theme-selector__label";
@@ -135,6 +141,18 @@
       label.textContent = palette.name;
     };
 
+    const closeMenu = () => {
+      if (!menu.hidden) {
+        menu.hidden = true;
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    };
+
+    const menuHeader = document.createElement("div");
+    menuHeader.className = "md-theme-selector__header";
+    menuHeader.textContent = "Select a theme";
+    menu.appendChild(menuHeader);
+
     palettes.forEach((palette) => {
       const option = document.createElement("button");
       option.type = "button";
@@ -142,10 +160,7 @@
       option.setAttribute("role", "option");
       option.setAttribute("data-theme", palette.name);
 
-      const optIcon = document.createElement("span");
-      optIcon.className = "md-theme-selector__icon";
-      optIcon.textContent = palette.icon;
-
+      const optIcon = createIcon(palette.icon);
       const optLabel = document.createElement("span");
       optLabel.textContent = palette.name;
 
@@ -154,13 +169,19 @@
       option.addEventListener("click", () => {
         applyPalette(palette);
         setDisplay(palette);
-        menu.hidden = true;
-        trigger.setAttribute("aria-expanded", "false");
+        closeMenu();
         document.documentElement.dispatchEvent(new Event("theme-change"));
       });
 
       menu.appendChild(option);
     });
+
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "md-theme-selector__close";
+    closeButton.textContent = "Close";
+    closeButton.addEventListener("click", closeMenu);
+    menu.appendChild(closeButton);
 
     const schemeToggle = document.createElement("button");
     schemeToggle.type = "button";
@@ -184,12 +205,7 @@
       trigger.setAttribute("aria-expanded", String(next));
     });
 
-    document.addEventListener("click", () => {
-      if (!menu.hidden) {
-        menu.hidden = true;
-        trigger.setAttribute("aria-expanded", "false");
-      }
-    });
+    document.addEventListener("click", closeMenu);
 
     item.appendChild(title);
     item.appendChild(trigger);
@@ -198,9 +214,41 @@
     navList.insertBefore(item, navList.firstChild);
   };
 
+  const makeSiteTitleClickable = () => {
+    const siteTitle = document.querySelector(".md-nav__title--site");
+    if (siteTitle && !siteTitle.querySelector("a")) {
+      const link = document.createElement("a");
+      const headerHome = document.querySelector(".md-header__button.md-logo, .md-header__button.md-icon");
+      link.href = headerHome?.getAttribute("href") || "./";
+      link.textContent = siteTitle.textContent;
+      siteTitle.textContent = "";
+      siteTitle.appendChild(link);
+    }
+  };
+
+  const initNavCollapse = () => {
+    document.querySelectorAll(".md-nav__item--section").forEach((item) => {
+      const toggle = item.querySelector("input.md-nav__toggle");
+      const label = item.querySelector("label.md-nav__link");
+      if (toggle && label && !label.dataset.bound) {
+        label.dataset.bound = "1";
+        label.addEventListener("click", (event) => {
+          event.preventDefault();
+          toggle.checked = !toggle.checked;
+        });
+      }
+    });
+  };
+
   const init = () => {
     buildSelector();
-    const observer = new MutationObserver(() => buildSelector());
+    makeSiteTitleClickable();
+    initNavCollapse();
+    const observer = new MutationObserver(() => {
+      buildSelector();
+      makeSiteTitleClickable();
+      initNavCollapse();
+    });
     observer.observe(document.body, { childList: true, subtree: true });
   };
 

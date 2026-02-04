@@ -142,10 +142,16 @@ def rewrite_any_links(text, current_rel, page_map):
         url = parts[0]
         title = ' ' + parts[1] if len(parts) > 1 else ''
 
-        if url.startswith('#') or url.startswith('mailto:') or url.startswith('http://') or url.startswith('https://'):
+        if url.startswith('#') or url.startswith('mailto:'):
             return original
 
         cleaned = url
+        if cleaned.startswith('http://') or cleaned.startswith('https://'):
+            if '/wiki/' in cleaned:
+                cleaned = cleaned.split('/wiki/', 1)[1]
+            else:
+                return original
+
         if cleaned.endswith('.md'):
             cleaned = cleaned[:-3]
         cleaned = cleaned.strip('/')
@@ -192,6 +198,15 @@ def rewrite_image_links(text, current_rel):
             if dest:
                 rel_url = os.path.relpath(dest, start=(DOCS_DIR / current_rel).parent).replace('\\\\', '/')
                 return original.replace(match.group(1), rel_url)
+        # Try relative images against the main repo raw URL.
+        if not (url.startswith("http://") or url.startswith("https://")):
+            rel = url.lstrip("./")
+            if any(rel.lower().endswith(ext) for ext in ASSET_EXTS):
+                raw_url = f"{REPO_RAW_BASE}/main/{rel}"
+                dest = download_asset(raw_url, rel)
+                if dest:
+                    rel_url = os.path.relpath(dest, start=(DOCS_DIR / current_rel).parent).replace('\\\\', '/')
+                    return original.replace(match.group(1), rel_url)
         return original.replace(match.group(1), original_url)
 
     return IMAGE_LINK_RE.sub(replace, text)
