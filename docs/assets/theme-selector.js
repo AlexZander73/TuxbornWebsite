@@ -226,56 +226,15 @@
     }
   };
 
-  const setSectionOpen = (item, open) => {
-    const childNav = item.querySelector(".md-nav");
-    if (!childNav) return;
-    childNav.style.display = open ? "" : "none";
-    item.classList.toggle("md-nav__item--expanded", open);
-  };
-
-  const initNavCollapse = () => {
-    const isDesktop = window.matchMedia("(min-width: 60em)").matches;
-    document.querySelectorAll(".md-nav__item--section").forEach((item) => {
-      const link = item.querySelector(".md-nav__link");
-      const childNav = item.querySelector(".md-nav");
-      if (!link || !childNav) return;
-      if (!link.dataset.bound) {
-        link.dataset.bound = "1";
-        link.addEventListener("click", (event) => {
-          if (!window.matchMedia("(min-width: 60em)").matches) return;
-          event.preventDefault();
-          const isExpanded = item.classList.contains("md-nav__item--expanded");
-          setSectionOpen(item, !isExpanded);
-        });
-      }
-      if (isDesktop) {
-        const isActive = item.classList.contains("md-nav__item--active");
-        setSectionOpen(item, isActive);
-      }
-    });
-  };
-
-  const syncDesktopNavState = () => {
-    if (!window.matchMedia("(min-width: 60em)").matches) return;
-    document.querySelectorAll(".md-nav__item--section").forEach((item) => {
-      const isActive = item.classList.contains("md-nav__item--active");
-      setSectionOpen(item, isActive);
-    });
-  };
 
   const init = () => {
     buildSelector();
     makeSiteTitleClickable();
-    initNavCollapse();
-    syncDesktopNavState();
     const observer = new MutationObserver(() => {
       buildSelector();
       makeSiteTitleClickable();
-      initNavCollapse();
-      syncDesktopNavState();
     });
     observer.observe(document.body, { childList: true, subtree: true });
-    window.addEventListener("resize", syncDesktopNavState);
   };
 
   if (document.readyState === "loading") {

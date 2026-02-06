@@ -143,6 +143,7 @@
   width: 0;
   height: 0;
   pointer-events: none;
+  display: none;
 }
 
 @media (min-width: 60em) {
@@ -159,12 +160,7 @@
     cursor: pointer;
   }
 
-  .md-sidebar--primary .md-nav__item--section > .md-nav {
+  .md-sidebar--primary .md-nav__item--section > input.md-nav__toggle:not(:checked) ~ nav {
     display: none;
-  }
-
-  .md-sidebar--primary .md-nav__item--section.md-nav__item--expanded > .md-nav,
-  .md-sidebar--primary .md-nav__item--section.md-nav__item--active > .md-nav {
-    display: block;
   }
 }
