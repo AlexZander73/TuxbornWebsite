@@ -226,16 +226,31 @@
     }
   };
 
+  const setSectionOpen = (item, open) => {
+    const childNav = item.querySelector(".md-nav");
+    if (!childNav) return;
+    childNav.style.display = open ? "" : "none";
+    item.classList.toggle("md-nav__item--collapsed", !open);
+  };
+
   const initNavCollapse = () => {
+    const isDesktop = window.matchMedia("(min-width: 60em)").matches;
     document.querySelectorAll(".md-nav__item--section").forEach((item) => {
-      const toggle = item.querySelector("input.md-nav__toggle");
-      const label = item.querySelector("label.md-nav__link");
-      if (toggle && label && !label.dataset.bound) {
-        label.dataset.bound = "1";
-        label.addEventListener("click", (event) => {
+      const link = item.querySelector(".md-nav__link");
+      const childNav = item.querySelector(".md-nav");
+      if (!link || !childNav) return;
+      if (!link.dataset.bound) {
+        link.dataset.bound = "1";
+        link.addEventListener("click", (event) => {
+          if (!window.matchMedia("(min-width: 60em)").matches) return;
           event.preventDefault();
-          toggle.checked = !toggle.checked;
+          const isCollapsed = item.classList.contains("md-nav__item--collapsed");
+          setSectionOpen(item, isCollapsed);
         });
+      }
+      if (isDesktop) {
+        const isActive = item.classList.contains("md-nav__item--active");
+        setSectionOpen(item, isActive);
       }
     });
   };
@@ -243,10 +258,8 @@
   const syncDesktopNavState = () => {
     if (!window.matchMedia("(min-width: 60em)").matches) return;
     document.querySelectorAll(".md-nav__item--section").forEach((item) => {
-      const toggle = item.querySelector("input.md-nav__toggle");
-      if (!toggle) return;
       const isActive = item.classList.contains("md-nav__item--active");
-      toggle.checked = isActive;
+      setSectionOpen(item, isActive);
     });
   };
 
