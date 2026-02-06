@@ -230,6 +230,14 @@
   const init = () => {
     buildSelector();
     makeSiteTitleClickable();
+    if (window.matchMedia("(min-width: 60em)").matches) {
+      document.querySelectorAll(".md-nav__item--section").forEach((item) => {
+        const toggle = item.querySelector("input.md-nav__toggle");
+        if (toggle) {
+          toggle.checked = item.classList.contains("md-nav__item--active");
+        }
+      });
+    }
     const observer = new MutationObserver(() => {
       buildSelector();
       makeSiteTitleClickable();
