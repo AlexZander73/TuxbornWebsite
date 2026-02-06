@@ -181,6 +181,8 @@ Here are the two new followers officially added to the beta:
 
 There is a third follower who's a surprise mystery follower, who we will _not_ be discussing on this page, because we want it to be a surprise. ;)
 
+Additionally, extra followers are added by [Hammet's Dungeon Pack 1](https://www.nexusmods.com/skyrimspecialedition/mods/12186), mentioned below. For now those followers are present in the beta, although we may remove them before final release. Click over to the mod's Nexus page to see who the followers are and where they can be found.
+
 ### New craftable armor and outfits
 
 We are adding a _lot_ of new craftable armor and clothing items to the list, too many to list here, so we will not for the sake of brevity. Suffice to say you have a bunch more craftable armor options now.
@@ -216,8 +218,6 @@ Some other known quest and dungeon mods we're adding include:
 * [Miasma](https://www.nexusmods.com/skyrimspecialedition/mods/167571)
 * [Once We Were Here](https://www.nexusmods.com/skyrimspecialedition/mods/149820)
 * [Redeeming Fultheim - A Blades Quest Addon](https://www.nexusmods.com/skyrimspecialedition/mods/136788)
-
-Side note about Hammet's Dungeon Pack 1: this mod's description on Nexus says it adds five additional followers to the game. In our load order, we are _not_ including those followers, as we already have a bunch of followers available.
 
 ### Handheld Lanterns
 

@@ -230,7 +230,7 @@
     const childNav = item.querySelector(".md-nav");
     if (!childNav) return;
     childNav.style.display = open ? "" : "none";
-    item.classList.toggle("md-nav__item--collapsed", !open);
+    item.classList.toggle("md-nav__item--expanded", open);
   };
 
   const initNavCollapse = () => {
@@ -244,8 +244,8 @@
         link.addEventListener("click", (event) => {
           if (!window.matchMedia("(min-width: 60em)").matches) return;
           event.preventDefault();
-          const isCollapsed = item.classList.contains("md-nav__item--collapsed");
-          setSectionOpen(item, isCollapsed);
+          const isExpanded = item.classList.contains("md-nav__item--expanded");
+          setSectionOpen(item, !isExpanded);
         });
       }
       if (isDesktop) {

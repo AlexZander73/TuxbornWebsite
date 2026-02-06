@@ -331,13 +331,13 @@ def create_stub_pages():
         target.write_text("\n".join(body), encoding="utf-8")
 
 
-def generate_all_pages(pages):
+def generate_all_pages(pages, current_rel):
     lines = ["# All Pages", "", "Browse every page pulled from the Tuxborn GitHub Wiki.", ""]
     for page in pages:
         if page == "index.md":
             continue
         title = Path(page).stem.replace("-", " ")
-        link = page[:-3] + "/"
+        link = "../" + page_url("index.md", page)
         lines.append(f"- [{title}]({link})")
     return "\n".join(lines) + "\n"
 
@@ -455,7 +455,7 @@ def sync():
         ]
         for page in page_list:
             title = Path(page).stem.replace("-", " ")
-            link = page[:-3] + "/"
+            link = page_url("index.md", page)
             index_body.append(f"- [{title}]({link})")
         index_text = "\n".join(index_body) + "\n"
         index_text = ensure_front_matter(index_text, "https://github.com/Omni-guides/Tuxborn/wiki/Home")
@@ -483,7 +483,7 @@ def sync():
     else:
         all_pages_path = DOCS_DIR / "all-pages.md"
         page_list = sorted({p.as_posix() for p in page_targets.values()})
-        all_pages_text = generate_all_pages(page_list)
+        all_pages_text = generate_all_pages(page_list, "all-pages.md")
         all_pages_text = ensure_front_matter(all_pages_text, "https://github.com/Omni-guides/Tuxborn/wiki/Home")
         all_pages_path.write_text(all_pages_text, encoding="utf-8")
         nav_entries.append("all-pages.md")
