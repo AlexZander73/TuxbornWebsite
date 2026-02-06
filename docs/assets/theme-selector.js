@@ -240,16 +240,29 @@
     });
   };
 
+  const syncDesktopNavState = () => {
+    if (!window.matchMedia("(min-width: 60em)").matches) return;
+    document.querySelectorAll(".md-nav__item--section").forEach((item) => {
+      const toggle = item.querySelector("input.md-nav__toggle");
+      if (!toggle) return;
+      const isActive = item.classList.contains("md-nav__item--active");
+      toggle.checked = isActive;
+    });
+  };
+
   const init = () => {
     buildSelector();
     makeSiteTitleClickable();
     initNavCollapse();
+    syncDesktopNavState();
     const observer = new MutationObserver(() => {
       buildSelector();
       makeSiteTitleClickable();
       initNavCollapse();
+      syncDesktopNavState();
     });
     observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("resize", syncDesktopNavState);
   };
 
   if (document.readyState === "loading") {
