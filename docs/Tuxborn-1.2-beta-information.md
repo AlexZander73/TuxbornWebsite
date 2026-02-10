@@ -150,6 +150,14 @@ Expected behavior with this patch is that you should in theory be able to buy gu
 
 ## Brand new mods added
 
+### Diverse Dragons Collection SE
+
+Time to take another crack at varying up dragons! This particular dragon mod adds 28 new leveled types of dragons to the game. There is an MCM and a config spell included, which will allow you to customize which dragons you want to keep in your playthrough, and which ones you want to ditch.
+
+### Dragon Voiced Word Walls
+
+We're trying out Dragon Voiced Word Walls, a mod that changes the audio you hear when you approach a Word Wall. With this mod, what you'll hear is dragon speech.
+
 ### Subclasses of Skyrim 2
 
 We're adding a mod called [Subclasses of Skyrim 2](https://www.nexusmods.com/skyrimspecialedition/mods/98784), which allows further refinement of your character and their skills. This adds a new "Destiny" custom skills menu, for which you'll periodically get perks through the normal course of your play, for a total of 7 perks and 35 possible paths. See the mod link for additional details.
@@ -348,6 +356,22 @@ Konahrik's Accoutrements had has repeated texture issues in our load order, eith
 We have removed the ability to smelt down junk items at a smelter. The reason for this is, adding all those smelting recipes _is_ a performance hit to the game. So in the beta, we recommend you sell junk items to vendors instead and use the gold to buy crafting mats, or other supplies you might need. This _will_ impact your available inventory, of course. So you may need to make more use of the Stash Supplies spell, or any other methods of improving your carry weight as detailed at [Carry Weight in Tuxborn](Carry-Weight-in-Tuxborn/).
 
 ## Known issues
+
+### ‼️ Important note about dragon spawn rates, Diverse Dragons, and Timing is Everything ‼️
+
+Putting this outside the details block below for better visibility: we are seeing in testing that this mod impacts the rate at which random dragons spawn. Players familiar with 1.1.3 or earlier may remember that Timing is Everything, which was already in our load order, _also_ impacts dragon spawn rates.
+
+Diverse Dragons and Timing is Everything both impact the minimum number of days between random dragons. However, Diverse Dragons is later in the load order, so it will ultimately win if there is a conflict in settings between what Timing is Everything has set, and what Diverse Dragons has set.
+
+Both mods allow you to change this number via their MCMs. In Timing is Everything, the relevant option is Extra Options > Dragon Attacks > Min Days Between Attacks. In Diverse Dragons, the option is Control > Dragon Spawn Delay.
+
+Additionally, Timing is Everything has Extra Options > Dragon Attacks > Dragon Attack Chance, which sets the chances of whether you'll get a dragon when the next check for a dragon occurs in the game.
+
+Right now in the beta, the settings are a minimum of 7 days between attacks, and an 85 percent chance of a dragon showing up when the correct time is reached. If you feel that these numbers are too low, you should adjust them using Timing is Everything. Diverse Dragons should pick up on the change to Min Days Between Attacks.
+
+We are seeing signs however that Diverse Dragons may be adversely impacting dragon spawn rates, regardless. If you find that dragons are not showing up for you at random even when you have the settings set as you prefer, then please report this to #txbn-support.
+
+### Other known issues
 
 <details>
 <summary><i>Running list of Known Issues, as observed by or reported to Anna...</i></summary>

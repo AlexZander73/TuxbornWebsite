@@ -7,6 +7,7 @@ We have a lot of questions that regularly come up on the #txbn-general channel o
 * [Frequently Asked Questions: Character respec](Frequently-Asked-Questions:-Character-respec/): Covers the various ways you can change aspects of your character, including race, appearance, skill points, perk points, and attribute points
 * [Frequently Asked Questions: Content and quests](Frequently-Asked-Questions:-Content-and-quests/): Covers changes in content between various Tuxborn versions, and other FAQs about content in Tuxborn
 * [Frequently Asked Questions: Crafting](Frequently-Asked-Questions:-Crafting/): Some general questions about various aspects of crafting, smithing, alchemy, and enchanting
+* [Frequently Asked Questions: Dragons](Frequently-Asked-Questions:-Dragons/): Some general questions about dragons
 * [Frequently Asked Questions: General game functionality](Frequently-Asked-Questions:-General-game-functionality/): Page for general game functionality questions
 * [Frequently Asked Questions: Horses and other mounts](Frequently-Asked-Questions:-Horses-and-other-mounts/): All about horses (and other mounts as well)
 * [Frequently Asked Questions: How to use console on Steam Deck](Frequently-Asked-Questions:-How-to-use-console-on-Steam-Deck/): Steam Deck players, check here for workarounds needed because the Skyrim console crashes on the Deck

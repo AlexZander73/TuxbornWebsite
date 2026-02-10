@@ -36,9 +36,9 @@ This table will cover not only base game ingredients, but also, where known, ing
 | Ravage Health | Calm | Cyrodilic Spadetail, Eye of Sabre Cat, Giant Lichen, Jazbay Grapes, Scathecraw, Silverside Perch, Skeever Tail |
 | Ravage Health | Damage Weapon | Chokeberry, Congealed Putrescence, Daedra Venin |
 | Ravage Health | Fortify Unarmed | Gold Kanet |
-| Ravage Magicka | Silence | Frost Mirriam, Orange Dartwing, Lavender, Scathecraw, Spawn Ash, White Cap |
+| Ravage Magicka | Silence | Frost Mirriam, Grass Pod, Lavender, Orange Dartwing, Scathecraw, Spawn Ash, White Cap |
 | Ravage Stamina | Calm | Ash Salts, Bone Meal, Bungler's Bane, Hypha Facia, Jazbay Grapes, Scathecraw, Silverside Perch, Skeever Tail | 
-| Ravage Stamina | Command | Bee, Berit's Ashes, Deathbell, Scathecraw, Spawn Ash, Thistle Branch |
+| Ravage Stamina | Command | Bee, Berit's Ashes, Deathbell, Honeycomb, Scathecraw, Spawn Ash, Thistle Branch |
 | **Resist Fire** | Fortify Carry Weight | Dragon's Tongue |
 | **Resist Magic** | Fortify Armor Rating | Aster Bloom Core, Lavender |
 | Slow | Burden | Bloodgrass, Burnt Spriggan Wood, Elytra Ichor, Grahl Tusk<sup>7</sup>, Grave Tar, Green Butterfly Wing, Large Antlers, River Betty, Rot Scale, Salt, Trama Root, Worm's Head Cap |

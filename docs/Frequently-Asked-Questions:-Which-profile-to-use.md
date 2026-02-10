@@ -18,7 +18,7 @@ In each of those two loose groups, there will be a Desktop, a Handheld, and a De
 
 The Desktop profile is recommended for PCs. Handheld is recommended for any handheld device newer than the Steam Deck. And Deck is recommended for the Steam Deck. However, these are not hard requirements. Lower-end non-Deck handhelds, or lower-end PCs, may get better performance out of using the Deck profile as well. If the Desktop or Handheld profiles do not work well for you on your computer or device, try using the Deck profile instead.
 
-Also, if you want to try out both BFCO and non-BFCO profiles to see which you prefer, see the [Save-safe](Save‐safe/) page if you want to do such testing. As that page advises, you cannot safely switch between BFCO and not-BFCO on the same save file.
+Also, if you want to try out both BFCO and non-BFCO profiles to see which you prefer, see the [Save-safe](https://github.com/Omni-guides/Tuxborn/wiki/Save%E2%80%90safe) page if you want to do such testing. As that page advises, you cannot safely switch between BFCO and not-BFCO on the same save file.
 
 Doing at least a little bit of research and/or testing of the available profiles is recommended, as this, too, may influence your build choices.
 

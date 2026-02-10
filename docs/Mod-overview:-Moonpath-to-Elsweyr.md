@@ -12,7 +12,7 @@ The main requirement for it in our load order is that you need to have finished 
 
 Once you've fulfilled that requirement, then go to Falkreath. Right across the way from Falkreath's carriage driver, you should see two Khajiit with a wagon. Talk to those Khajiit to ask them if you can travel with them down to Elsweyr to launch the quest.
 
-If you have trouble talking with them, even if you've finished The Way of the Voice, have a look at [this entry](Known-quest‐blocking-bugs-in-Tuxborn/#cannot-talk-to-the-khajiit-in-falkreath-to-launch-moonpath-to-elsweyr) on the page for known quest-blocking bugs.
+If you have trouble talking with them, even if you've finished The Way of the Voice, have a look at [this entry](https://github.com/Omni-guides/Tuxborn/wiki/Known-quest%E2%80%90blocking-bugs-in-Tuxborn#cannot-talk-to-the-khajiit-in-falkreath-to-launch-moonpath-to-elsweyr) on the page for known quest-blocking bugs.
 
 ## "What level is recommended to begin Moonpath to Elsweyr?"
 

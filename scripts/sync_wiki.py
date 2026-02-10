@@ -234,8 +234,16 @@ def rewrite_md_links(text, current_rel, page_map):
             cleaned = cleaned.split("/wiki/", 1)[1]
         elif cleaned.startswith("/wiki/"):
             cleaned = cleaned.split("/wiki/", 1)[1]
+        elif cleaned.startswith("https://github.com/Omni-guides/Tuxborn/"):
+            cleaned = cleaned.split("/Omni-guides/Tuxborn/", 1)[1]
+            cleaned = cleaned.replace("wiki/", "")
+        elif cleaned.startswith("/Omni-guides/Tuxborn/"):
+            cleaned = cleaned.split("/Omni-guides/Tuxborn/", 1)[1]
+            cleaned = cleaned.replace("wiki/", "")
         else:
-            return original
+            # allow bare page names like Followers or Followers.md
+            if cleaned.startswith("http://") or cleaned.startswith("https://"):
+                return original
 
         if "#" in cleaned:
             cleaned, anchor = cleaned.split("#", 1)
@@ -243,7 +251,10 @@ def rewrite_md_links(text, current_rel, page_map):
         else:
             anchor = ""
 
-        cleaned = unquote(cleaned).strip("/")
+        cleaned = cleaned.strip("/")
+        if cleaned.endswith(".md"):
+            cleaned = cleaned[:-3]
+
         key = normalize_key(cleaned)
         if key not in page_map:
             return original
@@ -337,7 +348,7 @@ def generate_all_pages(pages, current_rel):
         if page == "index.md":
             continue
         title = Path(page).stem.replace("-", " ")
-        link = "../" + page_url("index.md", page)
+        link = "/" + page_url("index.md", page)
         lines.append(f"- [{title}]({link})")
     return "\n".join(lines) + "\n"
 
